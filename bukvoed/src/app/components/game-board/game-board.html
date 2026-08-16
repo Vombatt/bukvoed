@@ -1,0 +1,38 @@
+<div class="game-board-container">
+  <div class="header">
+    <app-difficulty-selector
+      [difficulty]="gameService.difficulty()"
+      (difficultyChange)="onDifficultyChange($event)">
+    </app-difficulty-selector>
+  </div>
+
+  <div class="content">
+    <app-image-display
+      [imageUrl]="gameService.imageUrl()"
+      [isLoading]="gameService.isImageLoading()">
+    </app-image-display>
+
+    <app-letter-input
+      [wordLength]="currentWordLength()"
+      [letters]="enteredLettersStrings()">
+    </app-letter-input>
+
+    <app-letter-keyboard
+      [letters]="gameService.availableLetters()"
+      (letterClick)="onLetterSelect($event)">
+    </app-letter-keyboard>
+  </div>
+
+  <div class="controls">
+    <app-game-controls
+      [canUndo]="gameService.canUndo()"
+      [canHint]="gameService.canHint()"
+      [hintsRemaining]="gameService.hintsRemaining()"
+      (undo)="onUndo()"
+      (clear)="onClear()"
+      (hint)="onHint()"
+      (replace)="onReplace()">
+    </app-game-controls>
+  </div>
+</div>
+
