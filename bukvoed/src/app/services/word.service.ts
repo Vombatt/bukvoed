@@ -2,8 +2,13 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
+export interface WordItem {
+  word: string;
+  imageUrl: string;
+}
+
 export type WordsDictionary = {
-  [length: string]: string[];
+  [length: string]: WordItem[];
 };
 
 @Injectable({
@@ -28,16 +33,16 @@ export class WordService {
     }
   }
 
-  getRandomWord(length: number): string | null {
+  getRandomWord(length: number): WordItem | null {
     if (!this.words[length]) {
       return null;
     }
 
-    const availableWords = this.words[length].filter(w => !this.usedWords.has(w));
+    const availableWords = this.words[length].filter(w => !this.usedWords.has(w.word));
     
     if (availableWords.length === 0) {
       // Если все слова этой длины использованы, сбрасываем список использованных
-      this.words[length].forEach(w => this.usedWords.delete(w));
+      this.words[length].forEach(w => this.usedWords.delete(w.word));
       const resetWords = this.words[length];
       return resetWords[Math.floor(Math.random() * resetWords.length)];
     }

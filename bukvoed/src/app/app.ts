@@ -25,7 +25,7 @@ export class App implements OnInit {
     this.isReady.set(false);
     try {
       await this.wordService.loadWords();
-      this.gameService.setDifficulty(4);
+      this.gameService.setDifficulty(3);
       this.isReady.set(true);
     } catch (e) {
       console.error('Failed to load words', e);

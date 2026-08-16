@@ -1,6 +1,5 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { WordService } from './word.service';
-import { ImageService } from './image.service';
 import { LetterTile, Difficulty } from '../models/game.model';
 
 @Injectable({
@@ -8,13 +7,12 @@ import { LetterTile, Difficulty } from '../models/game.model';
 })
 export class GameService {
   private wordService = inject(WordService);
-  private imageService = inject(ImageService);
 
   // State
   public currentWord = signal<string | null>(null);
   public enteredLetters = signal<LetterTile[]>([]);
   public availableLetters = signal<LetterTile[]>([]);
-  public difficulty = signal<Difficulty>(4);
+  public difficulty = signal<Difficulty>(3);
   public hintsRemaining = signal<number>(3);
   public imageUrl = signal<string | null>(null);
   public isImageLoading = signal<boolean>(false);
@@ -105,11 +103,11 @@ export class GameService {
 
   public nextWord() {
     const diff = this.difficulty();
-    const word = this.wordService.getRandomWord(diff);
+    const wordItem = this.wordService.getRandomWord(diff);
     
-    if (word) {
-      this.currentWord.set(word);
-      const letterStrings = this.wordService.generateLetterSet(word);
+    if (wordItem) {
+      this.currentWord.set(wordItem.word);
+      const letterStrings = this.wordService.generateLetterSet(wordItem.word);
       
       const tiles: LetterTile[] = letterStrings.map((letter, index) => ({
         id: `tile-${Date.now()}-${index}`,
@@ -119,14 +117,10 @@ export class GameService {
       
       this.availableLetters.set(tiles);
       this.enteredLetters.set([]);
-      this.hintsRemaining.set(word.length);
-      this.isImageLoading.set(true);
-      this.imageUrl.set(null);
-
-      this.imageService.searchImage(word).subscribe(url => {
-        this.imageUrl.set(url);
-        this.isImageLoading.set(false);
-      });
+      this.hintsRemaining.set(wordItem.word.length);
+      
+      this.imageUrl.set(wordItem.imageUrl);
+      this.isImageLoading.set(false);
     }
   }
 

@@ -11,7 +11,7 @@ import { Difficulty } from '../../models/game.model';
   styleUrl: './difficulty-selector.scss',
 })
 export class DifficultySelector {
-  @Input() difficulty: Difficulty = 4;
+  @Input() difficulty: Difficulty = 3;
   @Output() difficultyChange = new EventEmitter<Difficulty>();
 
   onDifficultyChange(newDifficulty: Difficulty) {
