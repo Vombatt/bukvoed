@@ -1,0 +1,8 @@
+<div class="letter-input-container">
+  @for (letter of cells; track $index) {
+    <div class="letter-cell" [class.filled]="letter !== null">
+      {{ letter }}
+    </div>
+  }
+</div>
+
