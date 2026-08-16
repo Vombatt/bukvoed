@@ -1,4 +1,9 @@
-@if (isReady()) {
+@if (hasError()) {
+  <div class="error-overlay">
+    <p>Ошибка загрузки словаря 😔</p>
+    <button (click)="retry()">Повторить</button>
+  </div>
+} @else if (isReady()) {
   <app-game-board></app-game-board>
 } @else {
   <div class="loading-overlay">
