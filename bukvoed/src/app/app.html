@@ -1,5 +1,7 @@
-<main style="padding: 2rem;">
-  <h1>Bukvoed MVP</h1>
-  <button mat-flat-button>Test Material Button</button>
-  <button mat-stroked-button color="primary">Test Material Button</button>
-</main>
+@if (isReady()) {
+  <app-game-board></app-game-board>
+} @else {
+  <div class="loading-overlay">
+    <p>Загрузка игры...</p>
+  </div>
+}
