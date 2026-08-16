@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline">
+  <mat-label>Сложность</mat-label>
+  <mat-select [value]="difficulty" (valueChange)="onDifficultyChange($event)">
+    <mat-option [value]="4">4 буквы</mat-option>
+    <mat-option [value]="5">5 букв</mat-option>
+    <mat-option [value]="6">6 букв</mat-option>
+  </mat-select>
+</mat-form-field>
