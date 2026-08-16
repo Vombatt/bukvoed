@@ -1,0 +1,14 @@
+<div class="keyboard-grid">
+  @for (tile of letters; track $index) {
+    <button 
+      class="keyboard-btn" 
+      [class.active]="tile.status === 'active'"
+      [class.inactive]="tile.status === 'inactive'"
+      [class.highlighted]="tile.status === 'highlighted'"
+      (click)="onLetterClick($index, tile.status)"
+      [disabled]="tile.status === 'inactive'"
+    >
+      {{ tile.letter }}
+    </button>
+  }
+</div>
