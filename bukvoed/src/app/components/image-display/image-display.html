@@ -1,0 +1,15 @@
+<div class="image-container">
+  @if (isLoading) {
+    <div class="loading-state">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  } @else if (imageUrl === null) {
+    <div class="placeholder-state">
+      <mat-icon class="placeholder-icon">image</mat-icon>
+      <span class="placeholder-text">Нет картинки</span>
+    </div>
+  } @else {
+    <img [src]="imageUrl" alt="Загадка" class="display-image" />
+  }
+</div>
+
