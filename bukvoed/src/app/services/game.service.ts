@@ -119,6 +119,7 @@ export class GameService {
       
       this.availableLetters.set(tiles);
       this.enteredLetters.set([]);
+      this.hintsRemaining.set(word.length);
       this.isImageLoading.set(true);
       this.imageUrl.set(null);
 
@@ -135,7 +136,6 @@ export class GameService {
 
   public setDifficulty(diff: Difficulty) {
     this.difficulty.set(diff);
-    this.hintsRemaining.set(3); // Optional: reset hints on difficulty change
     this.nextWord();
   }
 }
