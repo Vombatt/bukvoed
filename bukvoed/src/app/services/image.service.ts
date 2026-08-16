@@ -16,14 +16,14 @@ export interface PixabayResponse {
 export class ImageService {
   private apiUrl = 'https://pixabay.com/api/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   searchImage(query: string): Observable<string | null> {
     const params = {
       key: environment.pixabayApiKey,
       q: query,
       lang: 'ru',
-      image_type: 'photo',
+      image_type: 'illustration',
       per_page: 3
     };
 
