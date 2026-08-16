@@ -1,0 +1,5 @@
+# Obsidian / Knowledge Base
+knowledge/
+
+# Angular local environment (API keys)
+**/environment.local.ts
