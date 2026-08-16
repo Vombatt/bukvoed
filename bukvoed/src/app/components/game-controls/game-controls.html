@@ -1,0 +1,15 @@
+<div class="controls-container">
+  <button mat-stroked-button color="warn" [disabled]="!canUndo" (click)="undo.emit()">
+    ⌫ Удалить
+  </button>
+  <button mat-stroked-button color="warn" [disabled]="!canUndo" (click)="clear.emit()">
+    Очистить
+  </button>
+  <button mat-flat-button color="primary" [disabled]="!canHint || hintsRemaining <= 0" (click)="hint.emit()">
+    Подсказка ({{ hintsRemaining }})
+  </button>
+  <button mat-stroked-button color="accent" (click)="replace.emit()">
+    Заменить слово
+  </button>
+</div>
+

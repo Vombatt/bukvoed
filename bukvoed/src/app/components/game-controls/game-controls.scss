@@ -1,0 +1,17 @@
+@use '../../../styles/variables' as var;
+
+.controls-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var.$spacing-md;
+  justify-content: center;
+  align-items: center;
+  padding: var.$spacing-md;
+}
+
+button {
+  min-width: 120px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
