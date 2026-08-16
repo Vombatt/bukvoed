@@ -1,4 +1,5 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, effect } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { GameService } from '../../services/game.service';
 import { DifficultySelector } from '../difficulty-selector/difficulty-selector';
 import { ImageDisplay } from '../image-display/image-display';
@@ -14,7 +15,6 @@ import { Difficulty } from '../../models/game.model';
     ImageDisplay,
     LetterInput,
     LetterKeyboard,
-
     GameControls
   ],
   templateUrl: './game-board.html',
@@ -22,6 +22,7 @@ import { Difficulty } from '../../models/game.model';
 })
 export class GameBoardComponent implements OnInit {
   public gameService = inject(GameService);
+  private snackBar = inject(MatSnackBar);
 
   public enteredLettersStrings = computed(() => {
     return this.gameService.enteredLetters().map(tile => tile.letter);
@@ -30,6 +31,24 @@ export class GameBoardComponent implements OnInit {
   public currentWordLength = computed(() => {
     return this.gameService.currentWord()?.length || 0;
   });
+
+  constructor() {
+    effect(() => {
+      if (this.gameService.isComplete()) {
+        if (this.gameService.isCorrect()) {
+          this.snackBar.open('Молодец! 🎉', '', { duration: 2500, panelClass: ['success-snackbar'] });
+          setTimeout(() => {
+            this.gameService.nextWord();
+          }, 2500);
+        } else {
+          this.snackBar.open('Попробуй ещё!', '', { duration: 2500, panelClass: ['error-snackbar'] });
+          setTimeout(() => {
+            this.gameService.clearAll();
+          }, 1000);
+        }
+      }
+    });
+  }
 
   ngOnInit() {
     // Start the game initially if not started
@@ -65,3 +84,4 @@ export class GameBoardComponent implements OnInit {
     this.gameService.replaceWord();
   }
 }
+
