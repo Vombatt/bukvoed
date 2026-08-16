@@ -2,6 +2,8 @@ import { Component, signal, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { environment } from '../environments/environment';
 import { WordService } from './services/word.service';
+import { ImageService } from './services/image.service';
+
 @Component({
   selector: 'app-root',
   imports: [MatButtonModule],
@@ -11,6 +13,7 @@ import { WordService } from './services/word.service';
 export class App implements OnInit {
   protected readonly title = signal('bukvoed');
   private wordService = inject(WordService);
+  private imageService = inject(ImageService);
 
   constructor() {
     console.log('Pixabay API Key:', environment.pixabayApiKey);
@@ -23,6 +26,10 @@ export class App implements OnInit {
       const letters = this.wordService.generateLetterSet(word);
       console.log(`Выбранное слово: ${word}`);
       console.log(`Сгенерированный набор букв: ${letters.join(', ')}`);
+      
+      this.imageService.searchImage(word).subscribe(url => {
+        console.log(`URL картинки для слова "${word}":`, url);
+      });
     }
   }
 }
