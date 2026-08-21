@@ -107,6 +107,7 @@ export class GameService {
     
     if (wordItem) {
       this.currentWord.set(wordItem.word);
+      this.wordService.markAsUsed(wordItem.word);
       const letterStrings = this.wordService.generateLetterSet(wordItem.word);
       
       const tiles: LetterTile[] = letterStrings.map((letter, index) => ({
